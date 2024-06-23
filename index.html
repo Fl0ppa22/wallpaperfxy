@@ -1,112 +1,137 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modal con Página Web</title>
+    <title>Wallpaper fxy</title>
+
+    <!-- Open Graph meta tags -->
+    <meta property="og:title" content="Wallpaper fxy">
+    <meta property="og:description" content="Publica tus wallpaper con las personas!!! :>">
+    <meta property="og:image" content="https://i.pinimg.com/originals/ba/94/05/ba9405b7822bc4eebad24672f802abc1.png">
+    <meta property="og:type" content="website">
+
     <style>
-        /* Estilos para el modal */
-        .modal {
-            display: none; /* Oculto por defecto */
-            position: fixed; /* Fijado en la pantalla */
-            z-index: 1; /* Colocado por encima de otros elementos */
-            left: 0;
-            top: 0;
-            width: 100%; /* Ancho completo */
-            height: 100%; /* Altura completa */
-            overflow: auto; /* Habilitar desplazamiento si es necesario */
-            background-color: rgb(0,0,0); /* Color de fondo */
-            background-color: rgba(0,0,0,0.4); /* Con opacidad */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+            background-color: #36393f;
+            color: #dcddde;
+            /* Añadir el GIF como fondo */
+            background-image: url('https://i.pinimg.com/originals/d2/96/74/d296744858b6f4059d016874ef7561b2.gif');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
-
-        /* Estilos para el contenido del modal */
-        .modal-content {
-            background-color: #fefefe;
-            margin: 15% auto; /* Centrando verticalmente */
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%; /* Ancho del contenido */
-            max-width: 800px; /* Ancho máximo */
-            position: relative;
+        .loading-text {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
         }
-
-        /* Estilos para el botón de cerrar */
-        .close {
-            color: #aaa;
-            position: absolute;
-            top: 10px;
-            right: 20px;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
+        .iframe-container {
+            width: 100%;
+            height: 100%;
         }
-
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-        }
-
-        /* Estilos para el iframe */
         iframe {
             width: 100%;
-            height: 400px; /* Altura del iframe */
-            border: none; /* Sin borde */
+            height: 100%;
+            border: none;
+        }
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 320px;
+            padding: 15px;
+            background-color: #2f3136;
+            border: 1px solid #202225;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            display: none;
+            z-index: 1000;
+        }
+        .notification h3 {
+            margin: 0 0 10px;
+            font-size: 18px;
+            color: #fff;
+        }
+        .notification p {
+            margin: 0 0 15px;
+            font-size: 14px;
+            color: #b9bbbe;
+        }
+        .notification button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        .notification button#openUrl {
+            background-color: #7289da;
+            color: #fff;
+        }
+        .notification button#closeNotification {
+            background-color: #4f545c;
+            color: #b9bbbe;
+        }
+        .notification button#closeNotification:hover {
+            background-color: #60656d;
+        }
+        .notification button#openUrl:hover {
+            background-color: #5b6eae;
         }
     </style>
 </head>
 <body>
 
-<!-- Botón que abre el modal -->
-<button id="openModalBtn">Abrir Página</button>
+    <div class="loading-text">Cargando...</div>
 
-<!-- El modal -->
-<div id="myModal" class="modal">
-
-    <!-- Contenido del modal -->
-    <div class="modal-content">
-        <!-- Botón de cerrar -->
-        <span class="close">&times;</span>
-        
-        <!-- Contenido del iframe -->
-        <iframe id="iframeContent" src="" frameborder="0"></iframe>
+    <div id="notification" class="notification">
+        <h3>Notificación</h3>
+        <p>¿Eres de android?? Entra a nuestro Discord y descarga la aplicacion y recibe las nuevas actualizaciones.</p>
+        <button id="openUrl">Entrar</button>
+        <button id="closeNotification">Cerrar</button>
     </div>
 
-</div>
+    <script>
+        // Función para redireccionar después de 5 segundos
+        setTimeout(function() {
+            window.location.href = 'http://de2.bot-hosting.net:22682/';
+        }, 5000);
 
-<script>
-    // Obtener el modal
-    var modal = document.getElementById("myModal");
-
-    // Obtener el botón que abre el modal
-    var btn = document.getElementById("openModalBtn");
-
-    // Obtener el elemento <span> que cierra el modal
-    var span = document.getElementsByClassName("close")[0];
-
-    // Obtener el iframe
-    var iframe = document.getElementById("iframeContent");
-
-    // Cuando el usuario hace clic en el botón, abrir el modal y cargar la página en el iframe
-    btn.onclick = function() {
-        modal.style.display = "block";
-        iframe.src = "http://de2.bot-hosting.net:22682/"; // URL de la página que quieres mostrar
-    }
-
-    // Cuando el usuario hace clic en <span> (x), cerrar el modal
-    span.onclick = function() {
-        modal.style.display = "none";
-        iframe.src = ""; // Limpiar la URL del iframe al cerrar
-    }
-
-    // Cuando el usuario hace clic en cualquier lugar fuera del modal, cerrar el modal
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-            iframe.src = ""; // Limpiar la URL del iframe al cerrar
+        // Función para mostrar la notificación
+        function showNotification() {
+            const notification = document.getElementById('notification');
+            notification.style.display = 'block';
         }
-    }
-</script>
 
+        // Función para cerrar la notificación
+        function closeNotification() {
+            const notification = document.getElementById('notification');
+            notification.style.display = 'none';
+        }
+
+        // Event listener para el botón de abrir URL
+        document.getElementById('openUrl').addEventListener('click', () => {
+            window.location.href = 'https://discord.com/invite/f877y3Y26W';
+        });
+
+        // Event listener para el botón de cerrar notificación
+        document.getElementById('closeNotification').addEventListener('click', closeNotification);
+
+        // Mostrar la notificación cada minuto
+        setInterval(showNotification, 60000);
+
+        // Mostrar la notificación inmediatamente al cargar la página para probar
+        showNotification();
+    </script>
 </body>
 </html>
