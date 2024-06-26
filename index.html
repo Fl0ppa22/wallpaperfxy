@@ -3,135 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wallpaper fxy</title>
-
-    <!-- Open Graph meta tags -->
-    <meta property="og:title" content="Wallpaper fxy">
-    <meta property="og:description" content="Publica tus wallpaper con las personas!!! :>">
-    <meta property="og:image" content="https://i.pinimg.com/originals/ba/94/05/ba9405b7822bc4eebad24672f802abc1.png">
-    <meta property="og:type" content="website">
-
+    <title>Pantalla de Carga con Advertencia para Android</title>
     <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            width: 100%;
-            overflow: hidden;
-            font-family: 'Arial', sans-serif;
-            background-color: #36393f;
-            color: #dcddde;
-            /* Añadir el GIF como fondo */
-            background-image: url('https://i.pinimg.com/originals/d2/96/74/d296744858b6f4059d016874ef7561b2.gif');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-        .loading-text {
+        /* Estilos para centrar y estilizar el loader */
+        .loader {
             position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #f1f1f1;
+            z-index: 9999;
+            text-align: center;
+        }
+        .loader > p {
+            position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 24px;
-        }
-        .iframe-container {
-            width: 100%;
-            height: 100%;
-        }
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-        .notification {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 320px;
-            padding: 15px;
-            background-color: #2f3136;
-            border: 1px solid #202225;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-            display: none;
-            z-index: 1000;
-        }
-        .notification h3 {
-            margin: 0 0 10px;
             font-size: 18px;
-            color: #fff;
         }
-        .notification p {
-            margin: 0 0 15px;
-            font-size: 14px;
-            color: #b9bbbe;
-        }
-        .notification button {
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            font-size: 14px;
-            cursor: pointer;
-            margin-right: 10px;
-        }
-        .notification button#openUrl {
-            background-color: #7289da;
-            color: #fff;
-        }
-        .notification button#closeNotification {
-            background-color: #4f545c;
-            color: #b9bbbe;
-        }
-        .notification button#closeNotification:hover {
-            background-color: #60656d;
-        }
-        .notification button#openUrl:hover {
-            background-color: #5b6eae;
+
+        /* Estilos para el cuadro de advertencia */
+        .warning {
+            display: none;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 10000;
+            text-align: center;
+            color: white;
+            font-size: 24px;
+            padding-top: 20%;
         }
     </style>
 </head>
 <body>
+    <div class="loader">
+        <p>Cargando...</p>
+    </div>
 
-    <div class="loading-text">Cargando...</div>
-
-    <div id="notification" class="notification">
-        <h3>Notificación</h3>
-        <p>¿Eres de android?? Entra a nuestro Discord y descarga la aplicacion y recibe las nuevas actualizaciones.</p>
-        <button id="openUrl">Entrar</button>
-        <button id="closeNotification">Cerrar</button>
+    <div class="warning" id="androidWarning">
+        <p>¡Advertencia!<br>Esta página no es compatible con Android.</p>
     </div>
 
     <script>
-        // Función para redireccionar después de 5 segundos
-        setTimeout(function() {
-            window.location.href = 'http://de2.bot-hosting.net:22682/';
-        }, 5000);
+        // Detectar si el usuario está usando Android
+        var isAndroid = /Android/i.test(navigator.userAgent);
 
-        // Función para mostrar la notificación
-        function showNotification() {
-            const notification = document.getElementById('notification');
-            notification.style.display = 'block';
+        // Mostrar advertencia si es Android y detener la redirección
+        if (isAndroid) {
+            document.getElementById('androidWarning').style.display = 'block';
+        } else {
+            // Simular tiempo de carga antes de redirigir
+            setTimeout(function() {
+                window.location.href = "test.html"; // Cambiar por la página a la que quieres redirigir
+            }, 3000); // Tiempo en milisegundos (ej. 3000 = 3 segundos)
         }
-
-        // Función para cerrar la notificación
-        function closeNotification() {
-            const notification = document.getElementById('notification');
-            notification.style.display = 'none';
-        }
-
-        // Event listener para el botón de abrir URL
-        document.getElementById('openUrl').addEventListener('click', () => {
-            window.location.href = 'https://discord.com/invite/f877y3Y26W';
-        });
-
-        // Event listener para el botón de cerrar notificación
-        document.getElementById('closeNotification').addEventListener('click', closeNotification);
-
-        // Mostrar la notificación cada minuto
-        setInterval(showNotification, 60000);
-
-        // Mostrar la notificación inmediatamente al cargar la página para probar
-        showNotification();
     </script>
 </body>
 </html>
