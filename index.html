@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pantalla de Carga con Advertencia para Android</title>
+    <title>Pantalla de Carga con Advertencia para Móviles</title>
     <style>
         /* Estilos generales */
         body {
@@ -48,7 +48,19 @@
         }
         .warning p {
             font-size: 28px;
-            padding-top: 40%;
+            padding-top: 30%;
+        }
+        .warning button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .warning button:hover {
+            background-color: #45a049;
         }
     </style>
 </head>
@@ -57,23 +69,28 @@
         <h1>Cargando...</h1>
     </div>
 
-    <div class="warning" id="androidWarning">
-        <p>¡Advertencia!<br>Esta página no es compatible con Android puedes descargar nuestra aplicacion con</p>
-		<p href="https://discord.gg/23Zs7dg3Qp">discord</p>
+    <div class="warning" id="mobileWarning">
+        <p>¡Advertencia!<br>Esta página no es compatible con dispositivos móviles. pero puedes descargar nuestra aplicacion con</p>
+        <button onclick="redirectToDiscord()">Discord</button>
     </div>
 
     <script>
-        // Detectar si el usuario está usando Android
-        var isAndroid = /Android/i.test(navigator.userAgent);
+        // Detectar si el usuario está usando un dispositivo móvil
+        var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
-        // Mostrar advertencia si es Android y detener la redirección
-        if (isAndroid) {
-            document.getElementById('androidWarning').style.display = 'block';
+        // Mostrar advertencia si es móvil y detener la redirección
+        if (isMobile) {
+            document.getElementById('mobileWarning').style.display = 'block';
         } else {
             // Simular tiempo de carga antes de redirigir
             setTimeout(function() {
                 window.location.href = "http://de2.bot-hosting.net:22682/"; // Cambiar por la página a la que quieres redirigir
             }, 3000); // Tiempo en milisegundos (ej. 3000 = 3 segundos)
+        }
+
+        // Función para redirigir a la invitación de Discord
+        function redirectToDiscord() {
+            window.location.href = "https://discord.gg/23Zs7dg3Qp"; // Cambiar por tu URL de invitación de Discord
         }
     </script>
 </body>
